@@ -1,0 +1,30 @@
+{% load common_tags %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Привет мир!</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+            {% for menu_item in menu_items %}
+                {% if menu_item.get_children %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{ menu_item }}</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            {% for m_item in menu_item.get_children %}
+                                <li><a class="dropdown-item {% if current_url == menu_item.url %} dropdown-item active {% endif %}" href="{% url 'page_view' m_item.url %}">{{ m_item }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_url == menu_item.url %} nav-link active {% endif %}" aria-current="page" href="{% url 'page_view' menu_item.url %}">{{ menu_item }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
