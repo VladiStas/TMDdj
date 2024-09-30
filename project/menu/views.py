@@ -5,3 +5,6 @@ from django.db import connection
 
 def page_view(request, page_view):
     return render(request, 'index.html', {'item': page_view})
+
+def index(request):
+    return render(request, 'index.html')
